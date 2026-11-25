@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Blank Page &mdash; Stisla</title>
+
+    <?= $this->renderSection("title") ?>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>/template/node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- link baru dari gemini karna fontawesome kehapus -->
 
     <!-- CSS Libraries -->
 
@@ -217,11 +221,11 @@
                         </div>
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Hasna Zalfa Salsabil!</div>
+                            <img alt="image" src="<?= base_url('img/files/' . (logged_in() && !empty(user()->user_image) ? user()->user_image : 'default.png')) ?>" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?= logged_in() ? user()->username : 'Guest' ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <div class="dropdown-title">Logged in 5 min ago</div>
+                            <div class="dropdown-title">Logged in</div>
                             <a href="features-profile.html" class="dropdown-item has-icon">
                                 <i class="far fa-user"></i> Profile
                             </a>
@@ -232,7 +236,7 @@
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item has-icon text-danger">
+                            <a href="<?= site_url('logout') ?>" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
@@ -242,10 +246,10 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="#">Akuntansi WEB</a>
+                        <a href="<?= site_url('home') ?>">Akuntansi WEB</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">St</a>
+                        <a href="<?= site_url('home') ?>">St</a>
                     </div>
 
                     <ul class="sidebar-menu">
@@ -281,10 +285,13 @@
 
     <!-- General JS Scripts -->
     <script src="<?= base_url() ?>/template/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="<?= base_url() ?>/template/node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/template/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?= base_url() ?>/template/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url() ?>/template/node_modules/nicescroll/dist/jquery.nicescroll.min.js"></script>
 
     <script src="<?= base_url() ?>/template/assets/js/stisla.js"></script>
+
 
     <!-- JS Libraies -->
 

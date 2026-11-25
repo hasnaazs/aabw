@@ -34,6 +34,10 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        // Alias Myth/Auth
+        'login'         => \Myth\Auth\Filters\LoginFilter::class,
+        'role'          => \Myth\Auth\Filters\RoleFilter::class,
+        'permission'    => \Myth\Auth\Filters\PermissionFilter::class,
     ];
 
     /**
@@ -73,7 +77,20 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf',
+            'csrf' => [
+                'except' => [
+                    'jurnalumum/cetakjurnalpdf',
+                    'posting/postingpdf',
+                    'posting/cetakpostingpdf',
+                    'neracasaldo/neracasaldopdf',
+                    'neracasaldo/cetakneracasaldopdf',
+                    'neracalajur/neracalajurpdf',
+                    'neracalajur/cetakneracalajurpdf',
+                    'labarugi/labarugipdf',
+                    'pmodal/pmodalpdf',
+                    'neraca/neracapdf',
+                ],
+            ],
             // 'invalidchars',
         ],
         'after' => [
@@ -106,5 +123,23 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'login' => [
+            'before' => [
+                'akun1*',
+                'akun2*',
+                'akun3*',
+                'transaksi*',
+                'penyesuaian*',
+                'jurnalumum*',
+                'posting*',
+                'neracasaldo*',
+                'neracalajur*',
+                'labarugi*',
+                'pmodal*',
+                'neraca*',
+                'admin*',
+            ],
+        ],
+    ];
 }

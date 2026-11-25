@@ -1,5 +1,10 @@
 <?php
 
+spl_autoload_register(static function (string $class): void {
+    if ($class === 'CodeIgniter\Entity' && class_exists(\CodeIgniter\Entity\Entity::class)) {
+        class_alias(\CodeIgniter\Entity\Entity::class, 'CodeIgniter\Entity');
+    }
+});
 /**
  * The goal of this file is to allow developers a location
  * where they can overwrite core procedural functions and

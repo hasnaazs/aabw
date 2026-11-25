@@ -11,6 +11,7 @@ class Akun1 extends BaseController
         $query = $builder->get();
 
         $query = $this->db->query("SELECT * FROM akun1s");
+        $data['title'] = 'Data Akun 1';
         $data['dtakun1'] = $query->getResult();
         return view('akun1/index', $data);
 
@@ -22,7 +23,9 @@ class Akun1 extends BaseController
 
     public function new()
     {
-        return view('akun1/new');
+        $data['title'] = 'Tambah Akun 1';
+
+        return view('akun1/new', $data);
     }
 
     public function store()
@@ -34,5 +37,36 @@ class Akun1 extends BaseController
         ];
         $this->db->table('akun1s')->insert($data);
         return redirect()->to(site_url('akun1'))->with('success', 'Data Berhasil Disimpan');
+    }
+
+    public function edit($id = null)
+    {
+        if ($id != null) {
+            $query = $this->db->table('akun1s')->getWhere(['id_akun1' => $id]);
+            if ($query->resultID->num_rows > 0) {
+                $data['title'] = 'Edit Akun 1';
+                $data['dtakun1'] = $query->getRow();
+                return view('akun1/edit', $data);
+            } else {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+    //tambahan utk atasi problem dtakun dr notebooklm
+    public function update($id = null)
+    {
+        $data = [
+            'kode_akun1' => $this->request->getVar('kode_akun1'),
+            'nama_akun1' => $this->request->getVar('nama_akun1'),
+        ];
+        $this->db->table('akun1s')->where('id_akun1', $id)->update($data);
+        return redirect()->to(site_url('akun1'))->with('success', 'Data Berhasil Diupdate');
+    }
+    public function destroy($id = null)
+    {
+        $this->db->table('akun1s')->where('id_akun1', $id)->delete();
+        return redirect()->to(site_url('akun1'))->with('success', 'Data Berhasil Dihapus');
     }
 }
